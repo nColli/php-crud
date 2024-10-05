@@ -1,5 +1,6 @@
 <!-- Model controller-->
 <?php
+require_once('pdo.php');
 session_start();
 if (isset($_POST["account"]) && isset($_POST["password"])) {
     unset($_SESSION["account"]);
