@@ -5,8 +5,14 @@ session_start();
 if (isset($_POST["account"]) && isset($_POST["password"])) {
     unset($_SESSION["account"]);
     
+    $user = $_POST["account"];
+    $password = $_POST["password"];
+    $host = "localhost";
+    $database = "crud_database";
+    $pdo = new pdo_connection($user, $password, $host, $database);
+
     // logica verificar password y user
-    if (TRUE) {
+    if (verifyUser($user, $password)) {
         $_SESSION["account"] = $_POST["account"];
         $_SESSION["success"] = "Logged in."; // funciona como variable booleana porque compruebo si esta seteada con isset
         header('Location: app.php');
@@ -17,6 +23,11 @@ if (isset($_POST["account"]) && isset($_POST["password"])) {
         return;
     }
 }
+
+function verifyUser($user, $password) {
+    return true;
+}
+
 ?>
 <!-- View:-->
 <!DOCTYPE html>
