@@ -14,10 +14,29 @@ session_start();
     if (isset($_SESSION["logged"])) {
         echo('Please, <a href="login.php">log in</a>');
     } else {
-        echo('Test log');
-
         //tablas users
+        $pdo = $_SESSION["pdo"]; //set in login, database connection to database
+        $sql = "select id, name, email from users";
+        
+        echo "<table>";
 
+        echo "
+        <tr>
+            <th>id</th>
+            <th>name</th>
+            <th>email</th>
+        </tr>";
+
+        echo "<tr>";
+        foreach ($pdo->query($sql) as $row) {
+            echo "<th>" . $row['id'] . "</th>\n";
+            echo "<th>". $row['name'] . "</th>\n";
+            echo "<th>". $row['email'] . "</th>\n";
+            //renderizar boton de delete or update
+            // echo "<th><button>Delete</button></th>";
+        }
+        echo "</tr>";
+        echo "</table>";
 
     }
     ?></p>

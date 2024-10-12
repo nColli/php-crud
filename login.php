@@ -9,12 +9,17 @@ if (isset($_POST["account"]) && isset($_POST["password"])) {
     $password = $_POST["password"];
     $host = "localhost";
     $database = "crud_database";
-    $pdo = new pdo_connection($user, $password, $host, $database);
+    $pdo_connection = new pdo_connection($user, $password, $host, $database);
 
     // logica verificar password y user
     if (verifyUser($user, $password)) {
         $_SESSION["account"] = $_POST["account"];
         $_SESSION["success"] = "Logged in."; // funciona como variable booleana porque compruebo si esta seteada con isset
+
+        //Create connection wih verify user 
+        $pdo = $pdo_connection->create_connection();
+        $_SESSION["pdo"] = $pdo;
+
         header('Location: app.php');
         return;
     } else {
@@ -25,6 +30,7 @@ if (isset($_POST["account"]) && isset($_POST["password"])) {
 }
 
 function verifyUser($user, $password) {
+    //verificar usando htmlentities
     return true;
 }
 
