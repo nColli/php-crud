@@ -1,17 +1,16 @@
 <?php
-class pdo_connection {
-    public $pdo, $user, $password, $host, $database;
+//PDO
 
-    function __construct($user, $password, $host, $database) {
-        $this->user = $user;
-        $this->password = $password;
-        $this->host = $host;
-        $this->database = $database;
+    $host = 'localhost';
+    $database = 'store';
+    $user = 'user1';
+    $password = 'password1';
+    try {
+        $pdo = new PDO("mysql:host=$host;dbname=$database", $user, $password);
+    } catch (Exception $ex) {
+        echo '<p>ERROR connecting to database</p>';
+        error_log("db_connection.php, SQL error=".$ex->getMessage());
+        return FALSE;
     }
 
-    function create_connection() {
-        $this->pdo = new PDO("mysql:host=$this->host;dbname=$this->database", $this->user, $this->password);
-
-        return $this->pdo;
-    }
-}
+?>
